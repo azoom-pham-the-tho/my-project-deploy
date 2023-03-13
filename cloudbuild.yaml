@@ -6,7 +6,7 @@ steps:
     args:
       - "-c"
       - |
-        gcloud secrets versions access latest --project=${PROJECT_ID} --secret=--secret=${_ENV}-${_SECRET_NAME} --format='get(payload.data)' | tr '_-' '/+' | base64 -d > .env
+        gcloud secrets versions access latest --project=${_PROJECT_ID} --secret=${_ENV}-${_SECRET_NAME} --format='get(payload.data)' | tr '_-' '/+' | base64 -d > .env
     id: "prepare-secret"
   # Build the container image
   - name: "gcr.io/cloud-builders/docker"
