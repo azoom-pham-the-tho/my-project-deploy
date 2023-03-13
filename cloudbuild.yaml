@@ -10,7 +10,7 @@ steps:
         gcloud secrets versions access latest --project=${_PROJECT_ID} --secret=${_ENV}-${_SECRET_NAME} --format='get(payload.data)' | tr '_-' '/+' | base64 -d > ${_DECRYPTED_ENV_FILE_LOCATION}
   # this builds app docker image
   - id: "build-app-image"
-    name: "gcr.io/kaniko-project/executor:latest"
+    name: "gcr.io/cloud-builders/docker"
     waitFor: ["prepare-secret"]
     args:
       - --dockerfile=${_APP_DOCKER_FILE}

@@ -5,6 +5,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 # Install app dependencies
 RUN npm install
+
+RUN ls -la
 # Bundle app source
 COPY . .
 # Binding port
