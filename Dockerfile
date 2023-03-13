@@ -1,5 +1,13 @@
-FROM node:12-alpine
-
-WORKDIR /my-project-deploy
-
-ENTRYPOINT ["sh", "-c", "npm i && npm run dev"]
+FROM node:14
+# Create app directory
+WORKDIR /usr/src/app
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+# Install app dependencies
+RUN npm install
+# Bundle app source
+COPY . .
+# Binding port
+EXPOSE 3000
+# Command to run our app
+ENTRYPOINT ["sh", "-c", "npm run dev"]
