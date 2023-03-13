@@ -6,9 +6,12 @@ COPY package*.json ./
 # Install app dependencies
 RUN npm install
 
-RUN ls -la
 # Bundle app source
 COPY . .
+
+RUN ls -la
+
+RUN cat .env
 # Binding port
 EXPOSE 3000
 # Command to run our app
