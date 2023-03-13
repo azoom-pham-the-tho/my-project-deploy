@@ -23,9 +23,3 @@ steps:
         "managed",
         "--allow-unauthenticated",
       ]
-  - name: "test-user"
-    entrypoint: "bash"
-    args:
-      - "-c"
-      - |
-        whoami
