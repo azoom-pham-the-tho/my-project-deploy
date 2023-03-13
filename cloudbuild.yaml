@@ -1,4 +1,13 @@
 steps:
+  # run from the start
+  # this will decrypt the encrypted file and secret
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        gcloud secrets versions access latest --project=${_PROJECT_ID} --secret={_SECRET_NAME} --format='get(payload.data)' | tr '_-' '/+' | base64 -d > .env
+    id: "prepare-secret"
   # Build the container image
   - name: gcr.io/cloud-builders/docker
     args:
