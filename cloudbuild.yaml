@@ -35,6 +35,5 @@ steps:
 substitutions:
   _ENV: dev
   _SECRET_NAME: my-project-tho
-  _PROJECT_ID: azoom-n-d-phong
   _SERVICE_NAME: deploy-my-project-tho
 timeout: 900s
