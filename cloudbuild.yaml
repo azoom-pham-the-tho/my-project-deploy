@@ -9,7 +9,7 @@ steps:
         gcloud secrets versions access latest --project=${PROJECT_ID} --secret=--secret=${_ENV}-${_SECRET_NAME} --format='get(payload.data)' | tr '_-' '/+' | base64 -d > .env
     id: "prepare-secret"
   # Build the container image
-  - name: gcr.io/cloud-builders/docker
+  - name: gcr.io/gcr.io/azoom-n-d-phong/deploy-my-project-tho:latest
     args:
       ["build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "."]
     id: Building the container image
