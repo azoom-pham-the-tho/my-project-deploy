@@ -5,13 +5,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 # Install app dependencies
 RUN npm install
-
 # Bundle app source
 COPY . .
-
-RUN ls -la
-
-RUN cat .env
 # Binding port
 EXPOSE 3000
 # Command to run our app
