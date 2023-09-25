@@ -8,6 +8,7 @@ const { createConnection, getConnectionManager } = require("typeorm");
 var indexRouter = require("./routes/index");
 
 var app = express();
+let conn = null;
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -28,7 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
   };
 
   try {
-    const conn = await createConnection(config);
+    conn = await createConnection(config);
     console.log(
       `Database connection success.`
     );
@@ -37,12 +38,16 @@ app.use(express.static(path.join(__dirname, "public")));
       const activeConnection = getConnectionManager().get(config.name);
       return activeConnection;
     }
+    conn= null
     console.log(err);
   }
 })();
 
 
-app.use("/", indexRouter);
+app.use("/", (req, res, next) => {
+  req.connect = conn;
+  next();
+}, indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
