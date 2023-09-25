@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
-
+const { createConnection, getConnectionManager } = require("typeorm");
 var indexRouter = require("./routes/index");
 
 var app = express();
@@ -14,6 +14,33 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Cấu hình kết nối với cơ sở dữ liệu mysql
+
+(async () => {
+  const config = {
+    name: process.env.DB_NAME,
+    type: process.env.DB_TYPE,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+  };
+
+  try {
+    const conn = await createConnection(config);
+    console.log(
+      `Database connection success.`
+    );
+  } catch (err) {
+    if (err.name === "AlreadyHasActiveConnectionError") {
+      const activeConnection = getConnectionManager().get(config.name);
+      return activeConnection;
+    }
+    console.log(err);
+  }
+})();
+
 
 app.use("/", indexRouter);
 
