@@ -9,6 +9,7 @@ var indexRouter = require("./routes/index");
 
 var app = express();
 let conn = null;
+let errormessage = ""
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, "public")));
       const activeConnection = getConnectionManager().get(config.name);
       return activeConnection;
     }
+    errormessage = err;
     conn= null
   }
 })();
@@ -45,6 +47,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", (req, res, next) => {
   req.connect = conn;
+  req.error = errormessage;
   next();
 }, indexRouter);
 
