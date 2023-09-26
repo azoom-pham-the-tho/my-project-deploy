@@ -39,7 +39,6 @@ app.use(express.static(path.join(__dirname, "public")));
       return activeConnection;
     }
     conn= null
-    console.log(err);
   }
 })();
 
