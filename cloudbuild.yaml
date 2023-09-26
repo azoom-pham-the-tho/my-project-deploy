@@ -30,9 +30,7 @@ steps:
         "us-central1",
         "--platform",
         "managed",
-        "--allow-unauthenticated",
-        "--add-cloudsql-instances",
-        "${_INSTANCE_CONNECTION_NAME}"
+        "--allow-unauthenticated"
       ]
 substitutions:
   _ENV: dev
