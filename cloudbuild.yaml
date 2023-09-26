@@ -31,6 +31,8 @@ steps:
         "--platform",
         "managed",
         "--allow-unauthenticated",
+        --add-cloudsql-instances,
+        ${_INSTANCE_CONNECTION_NAME}
       ]
 substitutions:
   _ENV: dev
@@ -39,4 +41,5 @@ substitutions:
   _SERVICE_NAME: deploy-my-project-tho
   _APP_DOCKER_FILE: ./Dockerfile
   _CLOUD_RUN_SERVICE_NAME: deploy-my-project-tho
+  _INSTANCE_CONNECTION_NAME: azoom-n-d-phong:northamerica-northeast1:test-pool-connection
 timeout: 900s
