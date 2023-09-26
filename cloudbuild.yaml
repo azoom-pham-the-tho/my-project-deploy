@@ -31,8 +31,8 @@ steps:
         "--platform",
         "managed",
         "--allow-unauthenticated",
-        --add-cloudsql-instances,
-        ${_INSTANCE_CONNECTION_NAME}
+        "--add-cloudsql-instances",
+        "${_INSTANCE_CONNECTION_NAME}"
       ]
 substitutions:
   _ENV: dev
